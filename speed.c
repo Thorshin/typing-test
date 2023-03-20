@@ -11,7 +11,7 @@
 int main(){
 	char c, m[70][11], input[70][20], errors=0;
 	FILE *fp;
-	int n, k=0, l=0;
+	int n, k=0, l=0, e[30], x=0;
 	double v;
 	srand(time(0));
 
@@ -44,18 +44,24 @@ int main(){
 	printf("\n");
 
 	for(int i=0; i<n; i++){
-				scanf("%s", input[i]);
+		scanf("%s", input[i]);
 	}
-	
+
 	for(int i=0; i<n; i++){
 		if(strcmp(m[i],input[i]) != 0){
-			errors++;
+		e[x++] = i;
+		errors++;
 		}
 	}
 	if(errors == 0)
-	printf(GREEN "You made %d errors" RESET, errors);
-	else
-	printf(RED "You made %d errors" RESET, errors);
+	printf(GREEN "You made %d errors\n" RESET, errors);
+	else{
+
+	printf(RED "You made %d errors :\n" RESET, errors);
+	for(int i=0; i<x; i++){
+	printf("%s  == > %s\n", m[e[i]], input[e[i]]);
+	}
+}
 return 0;
 
 }
