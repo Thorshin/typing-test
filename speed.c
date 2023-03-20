@@ -2,9 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define BLUE "\x1B[34m"
+#define RESET "\x1B[0m"
+#define RED "\x1B[31m"
+#define GREEN "\x1B[32m"
+
 
 int main(){
-	char c ;// m[70][11], input[70][11];
+	char c, m[70][11], input[70][20], errors=0;
 	FILE *fp;
 	int n, k=0, l=0;
 	double v;
@@ -15,7 +20,7 @@ int main(){
 	scanf("%d", &n);
 
 	for(int j=0; j<n; j++, k++){
-	fp = fopen("/home/badre/Desktop/words.txt" , "r");
+	fp = fopen("words.txt" , "r");
 	v = rand()%1000;
 	for(int i=0; i<=v; i++) {
 	do
@@ -23,26 +28,34 @@ int main(){
 	c =fgetc(fp);
 	if(c != '\n' && i == v)
 		{
-		printf("%c", c);
-//	        m[k][l++]=c;
+		printf(BLUE "%c" RESET, c);
+        m[k][l++]=c;
 		}
 	if(c == '\n')
 		break;
 	}while(1);
 
 	}
-//	m[k][l]='\0';
+	m[k][l]='\0';
 	printf(" ");
 	fclose(fp);
-//	l=0;
+	l=0;
 	}
 	printf("\n");
-/*
-	for(int i=0; i<n; i++){
-		fgets(input[i], 11 , stdin);
-	}
 
-*/
+	for(int i=0; i<n; i++){
+				scanf("%s", input[i]);
+	}
+	
+	for(int i=0; i<n; i++){
+		if(strcmp(m[i],input[i]) != 0){
+			errors++;
+		}
+	}
+	if(errors == 0)
+	printf(GREEN "You made %d errors" RESET, errors);
+	else
+	printf(RED "You made %d errors" RESET, errors);
 return 0;
 
 }
